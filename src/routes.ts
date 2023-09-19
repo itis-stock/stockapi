@@ -1,8 +1,9 @@
 import { Express, Request, Response } from 'express';
 import timetable from './utils/timetable';
 import exam from './dev/exam';
+import firebase from './utils/firebase';
 
-export default function routes(app: Express, timetable: timetable) {
+export default function routes(app: Express, timetable: timetable, firebase: firebase) {
   /**
    * @openapi
    *
@@ -14,6 +15,10 @@ export default function routes(app: Express, timetable: timetable) {
   });
 
   app.get('/exam', async (req: Request, res: Response) => {
+    res.send(await exam());
+  });
+
+  app.get('/set', async (req: Request, res: Response) => {
     res.send(await exam());
   });
 }

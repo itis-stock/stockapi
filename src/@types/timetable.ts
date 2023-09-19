@@ -13,8 +13,11 @@ export type mergesElementType = {
 export type tableType = string[][] | null | undefined;
 
 export type teachersType = {
-  group: number;
+  group: string;
   course: number;
+  /**
+   * исключительно для парсинга таблицы, не важно для работы остальных функций
+   */
   indexColumn: number;
   lecture: teachersElementType[];
   practice: teachersElementType[];

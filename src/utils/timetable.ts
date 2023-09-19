@@ -7,12 +7,19 @@ export default class timetable {
   sheets_id = '1S-6LVVqPcS52mJs8QYna_NfUtwW7lV-JK_O5ZExBkmQ';
   sheets: sheets_v4.Sheets;
   columnCount: number;
-
+  /**
+   * иницилизация таблицы
+   */
   constructor() {
     this.sheets = google.sheets('v4');
     this.columnCount = 0;
   }
-
+  /**
+   * @private
+   * получить параметры для получения таблицы
+   * @param rangeName название листа, если требуется получить параметры без названия, его можно пропустить
+   * @returns параметры
+   */
   private getParams(rangeName?: string) {
     if (rangeName) {
       return {
@@ -27,7 +34,10 @@ export default class timetable {
       };
     }
   }
-
+  /**
+   * внутри функции получает информацию об объединенных ячейках, а также таблицу, после чего проводит их анализ
+   * @returns возвращает таблицу с объединенными ячейками, копируя данные во все объединенные ячейки
+   */
   private async getMergedTable() {
     const merges = await this.getMerges();
     const table = await this.getTable();
@@ -61,13 +71,19 @@ export default class timetable {
     });
     return tablebuf;
   }
-
+  /**
+   * получить таблицу
+   * @returns возвращает двумерный массив таблицы
+   */
   private async getTable(): Promise<tableType> {
     const data = await this.sheets.spreadsheets.values.get(this.getParams('Бакалавриат'));
     const sheet = data.data.values;
     return sheet;
   }
-
+  /**
+   * получить информацию об объединенных ячейках
+   * @returns возвращает информацию об объединенных ячейках и количество столбцов
+   */
   private async getMerges(): Promise<mergesType> {
     const data = await this.sheets.spreadsheets.get(this.getParams());
     const sheet = data.data.sheets?.find((s) => s.properties?.title === 'Бакалавриат');
@@ -87,20 +103,23 @@ export default class timetable {
     }
     return merges;
   }
-
+  /**
+   * получить преподавателей определенной группы
+   * @returns возвращает массив объектов из названия группы, курса, индекс столбца, практиков и лекторов
+   */
   async getTeachers() {
     const mergedtable = await this.getMergedTable();
     const teachers: teachersType[] = [];
 
     if (this.columnCount) {
       for (let i = 0; i < this.columnCount; i++) {
-        const group = mergedtable[1][i].match(/11-[0-9]+/g)?.map((el) => el.replace('-', ''));
+        const group = mergedtable[1][i].match(/11-[0-9]+/g);
         if (group && !mergedtable[1][i].includes('иностр')) {
           const course = mergedtable[0][i]
             .match(/[1-4] КУРС/g)
             ?.map((el) => el.replace(' КУРС', ''));
           teachers.push({
-            group: Number(group),
+            group: group.join(''),
             course: Number(course),
             indexColumn: i,
             practice: [],
