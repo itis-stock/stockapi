@@ -1,6 +1,5 @@
 import { google, sheets_v4 } from 'googleapis';
 import { mergesType, tableType, teachersElementType, teachersType } from '../@types/timetable';
-import fs from 'fs';
 import { subjectslist } from '../docs/subjects';
 import { teacherslist } from '../docs/teachers';
 
@@ -8,6 +7,7 @@ export default class timetable {
   sheets_id = '1S-6LVVqPcS52mJs8QYna_NfUtwW7lV-JK_O5ZExBkmQ';
   sheets: sheets_v4.Sheets;
   columnCount: number;
+
   constructor() {
     this.sheets = google.sheets('v4');
     this.columnCount = 0;

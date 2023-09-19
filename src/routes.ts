@@ -1,5 +1,6 @@
 import { Express, Request, Response } from 'express';
 import timetable from './utils/timetable';
+import exam from './dev/exam';
 
 export default function routes(app: Express, timetable: timetable) {
   /**
@@ -10,5 +11,9 @@ export default function routes(app: Express, timetable: timetable) {
 
   app.get('/timetable', async (req: Request, res: Response) => {
     res.send(await timetable.getTeachers());
+  });
+
+  app.get('/exam', async (req: Request, res: Response) => {
+    res.send(await exam());
   });
 }
