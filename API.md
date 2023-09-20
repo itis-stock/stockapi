@@ -146,3 +146,15 @@ unixtime в секундах
 ## Ошибки
 
 Коды ошибок и ответов указаны выше ⬆️
+
+# /docs.getAll
+
+# /exams.get
+
+# /exams.getAll
+
+# /tests.get
+
+# /tests.getAll
+
+# /teachers.getAll

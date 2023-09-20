@@ -10,8 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.listen(process.env.PORT, () => {
   console.log('http://localhost:' + process.env.PORT);
-  const tt = new timetable();
+  // const tt = new timetable();
   const fb = new firebase();
-  routes(app, tt, fb);
+  routes(app, fb);
 });
-/** TODO сделать */
