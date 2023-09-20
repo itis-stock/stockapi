@@ -2,6 +2,8 @@ import { Express, Request, Response } from 'express';
 import timetable from './utils/timetable';
 import exam from './dev/exam';
 import firebase from './utils/firebase';
+import documents from './dev/documents';
+import test from './dev/test';
 
 export default function routes(app: Express, timetable: timetable, firebase: firebase) {
   /**
@@ -19,6 +21,6 @@ export default function routes(app: Express, timetable: timetable, firebase: fir
   });
 
   app.get('/set', async (req: Request, res: Response) => {
-    res.send(await exam());
+    res.send(await test());
   });
 }

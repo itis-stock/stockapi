@@ -17,9 +17,13 @@ export default async function exam() {
     if (!content?.response?.items) {
       console.log(stockexams[i].id);
     } else {
+      if (content.response.count > 100) {
+        console.log(content.response.count);
+      }
       for (let j = 0; j < content.response.items.length; j++) {
         if (content.response.items[j].from_id > 0) {
           final.push({
+            id: content.response.items[j].id,
             year: 0,
             author_id: content.response.items[j].from_id,
             id_topic: stockexams[i].id,
@@ -37,7 +41,7 @@ export default async function exam() {
           });
           const dat = new Date(content.response.items[j].date * 1000);
           final[final.length - 1].year = dat.getFullYear();
-          if ((dat.getMonth() >= 0 && dat.getMonth() <= 2) || dat.getMonth() >= 9) {
+          if ((dat.getMonth() >= 0 && dat.getMonth() <= 3) || dat.getMonth() >= 10) {
             final[final.length - 1].semestr = 1;
           } else {
             final[final.length - 1].semestr = 2;
@@ -67,7 +71,7 @@ export default async function exam() {
     }
     await new Promise((resolve) => setTimeout(resolve, 500));
   }
-  console.log(stockexams.length + ' ' + final.length);
+  console.log('количество всех сообщений ' + final.length);
   const end = new Date();
   fs.writeFileSync('./src/dev/stockexam.json', JSON.stringify(final));
   console.log((end.getTime() - start.getTime()) / 1000 + ' секунд');

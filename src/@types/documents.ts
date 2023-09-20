@@ -1,4 +1,5 @@
 export type commentType = {
+  id: number;
   year: number;
   author_id: number;
   id_topic: number;
@@ -34,4 +35,19 @@ export type docType = {
   size: number;
   ext: string;
   url: string;
+};
+
+export type documentType = {
+  url: string;
+  id: number;
+  year: number;
+  author_id: number;
+  course: number | null;
+  semestr: number | null;
+  teacher: string | null;
+  subject: string | null;
+  date: number;
+  title: string | null;
+  likes: number;
+  special: boolean;
 };
