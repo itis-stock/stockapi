@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp } from "firebase/app";
 import {
   Firestore,
   getFirestore,
@@ -10,7 +10,7 @@ import {
   addDoc,
   setDoc,
   deleteDoc,
-} from 'firebase/firestore';
+} from "firebase/firestore";
 
 export default class firebase {
   private firebaseConfig = {
@@ -35,7 +35,7 @@ export default class firebase {
    * @param collectionname название коллекции
    * @returns возвращает массив всех документов в виде объекта, где в каждом объекте указывается id документа и data сам контент документа
    */
-  async getdocs(collectionname: string) {
+  async getAll(collectionname: string) {
     const querySnapshot = await getDocs(collection(this.db, collectionname));
     const content: { id: string; data: DocumentData }[] = [];
     querySnapshot.forEach((doc) => {
