@@ -52,7 +52,6 @@ export type documentType = {
 };
 
 export type userType = {
-  id: number;
   id_vk: number;
   name_vk: string;
   telegram_nickname: string;

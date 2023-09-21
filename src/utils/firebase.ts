@@ -83,16 +83,16 @@ export default class firebase {
     const docRef = await addDoc(collectionRef, data);
     return docRef.id;
   }
-  /**
-   * обновить данные документа
-   * @param collectionname название коллекции
-   * @param docname название документа
-   * @param data контент документа
-   */
-  async update(collectionname: string, docname: string, data: any) {
-    const docRef = doc(this.db, collectionname, docname);
-    await setDoc(docRef, data, { merge: true });
-  }
+  // /**
+  //  * обновить данные документа
+  //  * @param collectionname название коллекции
+  //  * @param docname название документа
+  //  * @param data контент документа
+  //  */
+  // async update(collectionname: string, docname: string, data: any) {
+  //   const docRef = doc(this.db, collectionname, docname);
+  //   await setDoc(docRef, data, { merge: true });
+  // }
   /**
    * удалить документ
    * @param collectionname название коллекции

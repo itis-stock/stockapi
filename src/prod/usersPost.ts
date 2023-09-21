@@ -3,16 +3,16 @@ import firebase from '../utils/firebase';
 import { responseType } from '../@types/response';
 /**
  * Обязательные
- * author_id: number;
- * course: number;
- * semestr: number;
- * teacher: number;
- * subject: number;
+ * id_vk: number;
+ * name_vk: string;
+ * telegram_nickname: string;
+ * group: string;
  * Необязательный
- * text: string;
- * photo_urls: string;
- * photo_heights: string;
- * photo_widths: string;
+ * noise: boolean;
+ * photo_url: string;
+ * hidden: boolean;
+ * display_name: string;
+ * description: string;
  */
 
 /**
@@ -21,7 +21,7 @@ import { responseType } from '../@types/response';
  * @param body
  * @param firebase
  */
-export default async function collectionPost(
+export default async function usersPost(
   headers: IncomingHttpHeaders,
   body: any,
   firebase: firebase,
