@@ -39,7 +39,6 @@ export type docType = {
 
 export type documentType = {
   url: string;
-  id: number;
   year: number;
   author_id: number;
   course: number | null;

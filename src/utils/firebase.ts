@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 import {
   Firestore,
   getFirestore,
@@ -10,7 +10,8 @@ import {
   addDoc,
   setDoc,
   deleteDoc,
-} from "firebase/firestore";
+  getCountFromServer,
+} from 'firebase/firestore';
 
 export default class firebase {
   private firebaseConfig = {
@@ -75,7 +76,7 @@ export default class firebase {
    * добавить документ в firestore с уникальным id
    * @param collectionname название коллекции
    * @param data контент, который добавляется в firestore
-   * @returns возвращает id документа
+   * @returns возвращает id документа <string>
    */
   async set(collectionname: string, data: any) {
     const collectionRef = collection(this.db, collectionname);
@@ -100,5 +101,16 @@ export default class firebase {
   async delete(collectionname: string, docname: string) {
     const docRef = doc(this.db, collectionname, docname);
     await deleteDoc(docRef);
+  }
+
+  /**
+   * получить количество документов в коллекции
+   * @param collectionname название коллекции
+   * @returns количество документов в коллекции <number>
+   */
+  async getCount(collectionname: string) {
+    const collectionRef = collection(this.db, collectionname);
+    const snap = await getCountFromServer(collectionRef);
+    return snap.data().count;
   }
 }
