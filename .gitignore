@@ -3,3 +3,6 @@ dist
 *.env
 src/dev
 .idea/
+src/docs/stockdocuments.ts
+src/docs/stockexams.ts
+src/docs/stocktests.ts
