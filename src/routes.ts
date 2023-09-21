@@ -39,11 +39,10 @@ export default function routes(app: Express, firebase: firebase) {
   });
   // POST
   app.post('/docs.post', async (req: Request, res: Response) => {
-    if (req.headers['master_key'] === process.env.MASTER_KEY) {
-      const buffer = await docsPost(req.body);
-      res.send(buffer);
-    } else {
-      res.send({ response: { status: 0 } });
-    }
+    const buffer = await docsPost(req.headers, req.body, firebase);
+    res.send(buffer);
   });
+
+  // DEV
+  app.get('/dev', async (req: Request, res: Response) => {});
 }

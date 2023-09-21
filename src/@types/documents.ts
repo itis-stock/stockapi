@@ -50,3 +50,16 @@ export type documentType = {
   likes: number;
   special: boolean;
 };
+
+export type userType = {
+  id: number;
+  id_vk: number;
+  name_vk: string;
+  telegram_nickname: string;
+  hidden: boolean;
+  display_name: string;
+  description: string;
+  photo_url: string;
+  group: string;
+  noise: boolean;
+};
