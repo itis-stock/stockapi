@@ -17,7 +17,9 @@ import firebase from '../utils/firebase';
 
 /**
  * добавляет в firebase/docs объект
+ * @param headers
  * @param body объект, который будет добавлен
+ * @param firebase
  * @returns объект responseType
  */
 export default async function docsPost(
