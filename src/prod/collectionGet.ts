@@ -18,6 +18,9 @@ export default async function collectionGet(
   const start = new Date();
   if (req.query['fb_id']) {
     responseObject.response.data = await firebase.get(collectionname, String(req.query['fb_id']));
+    if (!responseObject.response.data) {
+      responseObject.response.status = 500;
+    }
   } else {
     responseObject.response.status = 1;
     return responseObject;
