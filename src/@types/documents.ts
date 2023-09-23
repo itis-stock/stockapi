@@ -1,8 +1,6 @@
 export type commentType = {
-  id: number;
   year: number;
   author_id: number;
-  id_topic: number;
   course: number;
   semestr: number;
   teacher: string;
@@ -16,14 +14,13 @@ export type commentType = {
 
 export type attachmentsType = {
   type: 'photo' | 'doc';
-  photo?: photoType;
+  photo?: photoType[];
   doc?: docType;
 };
 
 export type photoType = {
   height: number;
   width: number;
-  type: 's' | 'm' | 'x' | 'o' | 'p' | 'q' | 'r' | 'y' | 'z' | 'w';
   url: string;
 };
 
