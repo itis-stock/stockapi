@@ -1,16 +1,14 @@
-import express from 'express';
-import 'dotenv/config';
-import cors from 'cors';
-import routes from '../../src/routes';
+import express, { Router } from 'express';
+import serverless from 'serverless-http';
+import { routesnetlify } from '../../src/routes';
 import firebase from '../../src/utils/firebase';
-const app = express();
 
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded());
+const api = express();
 
-app.listen(process.env.PORT, () => {
-  console.log('http://localhost:' + process.env.PORT);
-  const fb = new firebase();
-  routes(app, fb);
-});
+const router = Router();
+router.get('/hello', (req, res) => res.send('Hello World!'));
+const fb = new firebase();
+routesnetlify(router, fb);
+api.use('/api/', router);
+
+export const handler = serverless(api);
