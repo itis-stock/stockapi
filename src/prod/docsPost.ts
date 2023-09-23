@@ -14,13 +14,23 @@ import firebase from '../utils/firebase';
  * необязательные параметры
  * "title": string
  */
-
 /**
- * добавляет в firebase/docs объект
+ * Возвращает
+ * {
+ *  response: {
+ *    status: 200,
+ *    time: 0,
+ *    type: 'post',
+ *    data: fb_id (id файла, который был добавлен)
+ *  }
+ * }
+ */
+/**
+ *
  * @param headers
- * @param body объект, который будет добавлен
+ * @param body
  * @param firebase
- * @returns объект responseType
+ * @returns
  */
 export default async function docsPost(
   headers: IncomingHttpHeaders,

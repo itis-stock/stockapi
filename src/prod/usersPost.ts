@@ -14,13 +14,18 @@ import { responseType } from '../@types/response';
  * display_name: string;
  * description: string;
  */
-
 /**
- *
- * @param headers
- * @param body
- * @param firebase
+ * Возвращает
+ * {
+ *  response: {
+ *    status: 200,
+ *    time: 0,
+ *    type: 'post',
+ *    data: fb_id (id файла, который был добавлен)
+ *  }
+ * }
  */
+
 export default async function usersPost(
   headers: IncomingHttpHeaders,
   body: any,

@@ -16,13 +16,18 @@ import createtitle from '../utils/createtitle';
  * photo_heights: string;
  * photo_widths: string;
  */
-
 /**
- *
- * @param headers
- * @param body
- * @param firebase
+ * Возвращает
+ * {
+ *  response: {
+ *    status: 200,
+ *    time: 0,
+ *    type: 'post',
+ *    data: fb_id (id файла, который был добавлен)
+ *  }
+ * }
  */
+
 export default async function collectionPost(
   headers: IncomingHttpHeaders,
   body: any,
