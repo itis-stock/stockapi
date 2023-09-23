@@ -155,6 +155,11 @@ export default async function usersPost(
       group: body['group'],
       noise: getboolean(body['hidden']) || false,
     };
+    await firebase.setdoc('users', body['id_vk'], data);
+    const metaCount = await firebase.getCount('meta');
+    const meta = await firebase.get('meta', String(metaCount));
+    meta?.users.push(body['id_vk']);
+    await firebase.setdoc('meta', String(metaCount + 1), meta);
     const end = new Date();
     responseObject.response.time = (end.getTime() - start.getTime()) / 1000;
     return responseObject;
