@@ -53,9 +53,9 @@ export type userType = {
   name_vk: string;
   telegram_nickname: string;
   hidden: boolean;
-  display_name: string;
-  description: string;
-  photo_url: string;
+  display_name: string | null;
+  description: string | null;
+  photo_url: string | null;
   group: string;
   noise: boolean;
 };
