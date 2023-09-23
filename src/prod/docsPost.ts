@@ -11,16 +11,20 @@ import firebase from '../utils/firebase';
  * "semestr": number
  * "subject": string
  * "teacher": string
+ *
  * необязательные параметры
  * "title": string
  */
-
 /**
- * добавляет в firebase/docs объект
- * @param headers
- * @param body объект, который будет добавлен
- * @param firebase
- * @returns объект responseType
+ * Возвращает
+ * {
+ *  response: {
+ *    status: 200,
+ *    time: 0,
+ *    type: 'post',
+ *    data: fb_id (id файла, который был добавлен)
+ *  }
+ * }
  */
 export default async function docsPost(
   headers: IncomingHttpHeaders,
@@ -30,16 +34,16 @@ export default async function docsPost(
   /**
    * Коды ошибок
    * 0 - не указан в headers master_key или указан неправильно
-   * 4 - не указан обязательный параметр author_id -
-   * 5 - параметр author_id не число -
-   * 6 - не указан обязательный параметр url -
-   * 7 - некорректный url -
-   * 8 - не указан обязательный параметр course -
-   * 9 - параметр course не число -
-   * 10 - не указан обязательный параметр semestr -
-   * 11 - параметр semestr не число -
-   * 12 - не указан обязательный параметр teacher -
-   * 13 - не указан обязательный параметр subject -
+   * 4 - не указан обязательный параметр author_id
+   * 5 - параметр author_id не число
+   * 6 - не указан обязательный параметр url
+   * 7 - некорректный url
+   * 8 - не указан обязательный параметр course
+   * 9 - параметр course не число
+   * 10 - не указан обязательный параметр semestr
+   * 11 - параметр semestr не число
+   * 12 - не указан обязательный параметр teacher
+   * 13 - не указан обязательный параметр subject
    * 14 - некорректный teacher
    * 15 - некорректный subject
    * 16 - ошибка firebase
@@ -130,52 +134,62 @@ export default async function docsPost(
     return responseObject;
   }
 
-  const list = await firebase.getAll('list');
-  const listparsed = [...list.map((el) => el.data.items)[0], ...list.map((el) => el.data.items)[1]];
+  try {
+    const list = await firebase.getAll('list');
+    const listparsed = [
+      ...list.map((el) => el.data.items)[0],
+      ...list.map((el) => el.data.items)[1],
+    ];
 
-  if (!listparsed.includes(body['teacher'])) {
-    responseObject.response.status = 14;
+    if (!listparsed.includes(body['teacher'])) {
+      responseObject.response.status = 14;
+      responseObject.response.type = 'error';
+      responseObject.response.errormessage = 'некорректный teacher';
+      return responseObject;
+    }
+
+    if (!listparsed.includes(body['subject'])) {
+      responseObject.response.status = 15;
+      responseObject.response.type = 'error';
+      responseObject.response.errormessage = 'некорректный subject';
+      return responseObject;
+    }
+
+    const curdate = new Date();
+    const data: documentType = {
+      url: body['url'],
+      year: curdate.getFullYear(),
+      author_id: Number(body['author_id']),
+      course: Number(body['course']),
+      semestr: Number(body['semestr']),
+      teacher: body['teacher'],
+      subject: body['subject'],
+      date: Math.floor(curdate.getTime() / 1000),
+      title: body['title'] || null,
+      likes: 0,
+      special: Number(body['author_id']) === 256014823 || Number(body['author_id']) === 719164558,
+    };
+    const fb_id = await firebase.set('docs', data);
+    const metaCount = await firebase.getCount('meta');
+    const meta = await firebase.get('meta', String(metaCount));
+    meta?.docs.push({
+      course: Number(body['course']),
+      fb_id,
+      semestr: Number(body['semestr']),
+      subject: body['subject'],
+      teacher: body['teacher'],
+      title: body['title'] || null,
+      year: curdate.getFullYear(),
+    });
+    await firebase.setdoc('meta', String(metaCount + 1), meta);
+    const end = new Date();
+    responseObject.response.time = (end.getTime() - start.getTime()) / 1000;
+    responseObject.response.data = fb_id;
+    return responseObject;
+  } catch (err) {
+    responseObject.response.status = 16;
     responseObject.response.type = 'error';
-    responseObject.response.errormessage = 'некорректный teacher';
+    responseObject.response.errormessage = 'ошибка firebase';
     return responseObject;
   }
-
-  if (!listparsed.includes(body['subject'])) {
-    responseObject.response.status = 15;
-    responseObject.response.type = 'error';
-    responseObject.response.errormessage = 'некорректный subject';
-    return responseObject;
-  }
-
-  const curdate = new Date();
-  const data: documentType = {
-    url: body['url'],
-    year: curdate.getFullYear(),
-    author_id: Number(body['author_id']),
-    course: Number(body['course']),
-    semestr: Number(body['semestr']),
-    teacher: body['teacher'],
-    subject: body['subject'],
-    date: Math.floor(curdate.getTime() / 1000),
-    title: body['title'] || null,
-    likes: 0,
-    special: Number(body['author_id']) === 256014823 || Number(body['author_id']) === 719164558,
-  };
-  const fb_id = await firebase.set('docs', data);
-  const metaCount = await firebase.getCount('meta');
-  const meta = await firebase.get('meta', String(metaCount));
-  meta?.docs.push({
-    course: Number(body['course']),
-    fb_id,
-    semestr: Number(body['semestr']),
-    subject: body['subject'],
-    teacher: body['teacher'],
-    title: body['title'] || null,
-    year: curdate.getFullYear(),
-  });
-  await firebase.setdoc('meta', String(metaCount + 1), meta);
-  const end = new Date();
-  responseObject.response.time = (end.getTime() - start.getTime()) / 1000;
-  responseObject.response.data = fb_id;
-  return responseObject;
 }
