@@ -161,21 +161,28 @@ export default async function docsPost(
     likes: 0,
     special: Number(body['author_id']) === 256014823 || Number(body['author_id']) === 719164558,
   };
-  const fb_id = await firebase.set('docs', data);
-  const metaCount = await firebase.getCount('meta');
-  const meta = await firebase.get('meta', String(metaCount));
-  meta?.docs.push({
-    course: Number(body['course']),
-    fb_id,
-    semestr: Number(body['semestr']),
-    subject: body['subject'],
-    teacher: body['teacher'],
-    title: body['title'] || null,
-    year: curdate.getFullYear(),
-  });
-  await firebase.setdoc('meta', String(metaCount + 1), meta);
-  const end = new Date();
-  responseObject.response.time = (end.getTime() - start.getTime()) / 1000;
-  responseObject.response.data = fb_id;
-  return responseObject;
+  try {
+    const fb_id = await firebase.set('docs', data);
+    const metaCount = await firebase.getCount('meta');
+    const meta = await firebase.get('meta', String(metaCount));
+    meta?.docs.push({
+      course: Number(body['course']),
+      fb_id,
+      semestr: Number(body['semestr']),
+      subject: body['subject'],
+      teacher: body['teacher'],
+      title: body['title'] || null,
+      year: curdate.getFullYear(),
+    });
+    await firebase.setdoc('meta', String(metaCount + 1), meta);
+    const end = new Date();
+    responseObject.response.time = (end.getTime() - start.getTime()) / 1000;
+    responseObject.response.data = fb_id;
+    return responseObject;
+  } catch (err) {
+    responseObject.response.status = 16;
+    responseObject.response.type = 'error';
+    responseObject.response.errormessage = 'ошибка firebase';
+    return responseObject;
+  }
 }
