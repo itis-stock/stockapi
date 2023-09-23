@@ -43,6 +43,8 @@ export default async function usersPost(
    * 27 - не указан обязательный параметр group
    * 28 - параметр noise не булево значение
    * 29 - параметр hidden не булево значение
+   * 30 - количество символов description превышает 40
+   * 31 - количество символов description меньше 1
    */
   const responseObject: responseType = {
     response: {
