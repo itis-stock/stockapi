@@ -7,6 +7,7 @@ import { responseType } from '../@types/response';
  * name_vk: string;
  * telegram_nickname: string;
  * group: string;
+ *
  * Необязательный
  * noise: boolean;
  * photo_url: string;
@@ -34,6 +35,14 @@ export default async function usersPost(
   /**
    * Коды ошибок
    * 0 - не указан в headers master_key или указан неправильно
+   * 16 - ошибка firebase
+   * 23 - не указан обязательный параметр id_vk
+   * 24 - параметр id_vk не число
+   * 25 - не указан обязательный параметр name_vk
+   * 26 - не указан обязательный параметр telegram_nickname
+   * 27 - не указан обязательный параметр group
+   * 28 - параметр noise не булево значение
+   * 29 - параметр hidden не булево значение
    */
   const responseObject: responseType = {
     response: {

@@ -10,6 +10,7 @@ import createtitle from '../utils/createtitle';
  * semestr: number;
  * teacher: number;
  * subject: number;
+ *
  * Необязательный
  * text: string;
  * photo_urls: string;

@@ -11,6 +11,7 @@ import firebase from '../utils/firebase';
  * "semestr": number
  * "subject": string
  * "teacher": string
+ *
  * необязательные параметры
  * "title": string
  */
@@ -24,13 +25,6 @@ import firebase from '../utils/firebase';
  *    data: fb_id (id файла, который был добавлен)
  *  }
  * }
- */
-/**
- *
- * @param headers
- * @param body
- * @param firebase
- * @returns
  */
 export default async function docsPost(
   headers: IncomingHttpHeaders,
