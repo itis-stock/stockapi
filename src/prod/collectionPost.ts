@@ -29,6 +29,17 @@ export default async function collectionPost(
   /**
    * Коды ошибок
    * 0 - не указан в headers master_key или указан неправильно
+   * 4 - не указан обязательный параметр author_id
+   * 5 - параметр author_id не число
+   * 8 - не указан обязательный параметр course
+   * 9 - параметр course не число
+   * 10 - не указан обязательный параметр semestr
+   * 11 - параметр semestr не число
+   * 12 - не указан обязательный параметр teacher
+   * 13 - не указан обязательный параметр subject
+   * 14 - некорректный teacher
+   * 15 - некорректный subject
+   * 16 - ошибка firebase
    */
   const responseObject: responseType = {
     response: {
