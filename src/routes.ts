@@ -98,23 +98,6 @@ export function routesnetlify(app: Router, firebase: firebase) {
     const testsGetData = await metaGetActual(firebase);
     res.send(testsGetData);
   });
-  // отключаем, так как это сильно по сути напрягает firebase
-  // app.get('/docs.getAll', async (req: Request, res: Response) => {
-  //   const docsGetAllData = await collectionGetAll(firebase, 'docs');
-  //   res.send(docsGetAllData);
-  // });
-  // app.get('/exams.getAll', async (req: Request, res: Response) => {
-  //   const examsGetAllData = await collectionGetAll(firebase, 'exams');
-  //   res.send(examsGetAllData);
-  // });
-  // app.get('/teachers.getAll', async (req: Request, res: Response) => {
-  //   const teachersGetAllData = await collectionGetAll(firebase, 'teachers');
-  //   res.send(teachersGetAllData);
-  // });
-  // app.get('/tests.getAll', async (req: Request, res: Response) => {
-  //   const testsGetAllData = await collectionGetAll(firebase, 'tests');
-  //   res.send(testsGetAllData);
-  // });
   // POST
   app.post('/docs.post', async (req: Request, res: Response) => {
     const buffer = await docsPost(req.headers, req.body, firebase);
