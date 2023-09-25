@@ -1,6 +1,13 @@
 import { Express, Request, Response, Router } from 'express';
 import firebase from './utils/firebase';
-import { docsPost, collectionGet, collectionGetAll, collectionPost, usersPost } from './prod';
+import {
+  docsPost,
+  collectionGet,
+  collectionGetAll,
+  collectionPost,
+  usersPost,
+  metaGetActual,
+} from './prod';
 
 export default function routes(app: Express, firebase: firebase) {
   // GET
@@ -21,6 +28,10 @@ export default function routes(app: Express, firebase: firebase) {
   });
   app.get('/tests.get', async (req: Request, res: Response) => {
     const testsGetData = await collectionGet(req, firebase, 'tests');
+    res.send(testsGetData);
+  });
+  app.get('/meta.getActual', async (req: Request, res: Response) => {
+    const testsGetData = await metaGetActual(firebase);
     res.send(testsGetData);
   });
   // отключаем, так как это сильно по сути напрягает firebase
@@ -81,6 +92,10 @@ export function routesnetlify(app: Router, firebase: firebase) {
   });
   app.get('/tests.get', async (req: Request, res: Response) => {
     const testsGetData = await collectionGet(req, firebase, 'tests');
+    res.send(testsGetData);
+  });
+  app.get('/meta.getActual', async (req: Request, res: Response) => {
+    const testsGetData = await metaGetActual(firebase);
     res.send(testsGetData);
   });
   // отключаем, так как это сильно по сути напрягает firebase
