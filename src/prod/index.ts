@@ -5,5 +5,6 @@ import usersPost from './usersPost';
 // GET
 import collectionGet from './collectionGet';
 import collectionGetAll from './collectionGetAll';
+import metaGetActual from './metaGetActual';
 
-export { docsPost, collectionGet, collectionGetAll, collectionPost, usersPost };
+export { metaGetActual, docsPost, collectionGet, collectionGetAll, collectionPost, usersPost };
