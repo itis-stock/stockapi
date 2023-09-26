@@ -4,6 +4,7 @@ import { responseType } from '../@types/response';
 import { userType } from '../@types/documents';
 import getboolean from '../utils/getboolean';
 /**
+ * BODY PARAMS
  * Обязательные
  * id_vk: number;
  * name_vk: string;

@@ -4,6 +4,7 @@ import { responseType } from '../@types/response';
 import { commentType } from '../@types/documents';
 import createtitle from '../utils/createtitle';
 /**
+ * BODY PARAMS
  * Обязательные
  * author_id: number;
  * course: number;
