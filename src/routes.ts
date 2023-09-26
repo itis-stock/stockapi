@@ -106,7 +106,4 @@ export function routesnetlify(app: Router, firebase: firebase) {
     const buffer = await usersPost(req.headers, req.body, firebase);
     res.send(buffer);
   });
-
-  // DEV
-  app.get('/dev', async (req: Request, res: Response) => {});
 }
