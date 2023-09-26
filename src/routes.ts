@@ -7,6 +7,7 @@ import {
   collectionPost,
   usersPost,
   metaGetActual,
+  usersCheck,
 } from './prod';
 
 export default function routes(app: Express, firebase: firebase) {
@@ -31,26 +32,13 @@ export default function routes(app: Express, firebase: firebase) {
     res.send(testsGetData);
   });
   app.get('/meta.getActual', async (req: Request, res: Response) => {
-    const testsGetData = await metaGetActual(firebase);
-    res.send(testsGetData);
+    const metaGetData = await metaGetActual(firebase);
+    res.send(metaGetData);
   });
-  // отключаем, так как это сильно по сути напрягает firebase
-  // app.get('/docs.getAll', async (req: Request, res: Response) => {
-  //   const docsGetAllData = await collectionGetAll(firebase, 'docs');
-  //   res.send(docsGetAllData);
-  // });
-  // app.get('/exams.getAll', async (req: Request, res: Response) => {
-  //   const examsGetAllData = await collectionGetAll(firebase, 'exams');
-  //   res.send(examsGetAllData);
-  // });
-  // app.get('/teachers.getAll', async (req: Request, res: Response) => {
-  //   const teachersGetAllData = await collectionGetAll(firebase, 'teachers');
-  //   res.send(teachersGetAllData);
-  // });
-  // app.get('/tests.getAll', async (req: Request, res: Response) => {
-  //   const testsGetAllData = await collectionGetAll(firebase, 'tests');
-  //   res.send(testsGetAllData);
-  // });
+  app.get('/users.check', async (req: Request, res: Response) => {
+    const GetData = await usersCheck(req, firebase);
+    res.send(GetData);
+  });
   // POST
   app.post('/docs.post', async (req: Request, res: Response) => {
     const buffer = await docsPost(req.headers, req.body, firebase);
@@ -97,6 +85,10 @@ export function routesnetlify(app: Router, firebase: firebase) {
   app.get('/meta.getActual', async (req: Request, res: Response) => {
     const testsGetData = await metaGetActual(firebase);
     res.send(testsGetData);
+  });
+  app.get('/users.check', async (req: Request, res: Response) => {
+    const GetData = await usersCheck(req, firebase);
+    res.send(GetData);
   });
   // POST
   app.post('/docs.post', async (req: Request, res: Response) => {

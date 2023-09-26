@@ -4,6 +4,7 @@ import { responseType } from '../@types/response';
 import firebase from '../utils/firebase';
 
 /**
+ * BODY PARAMS
  * обязательные параметры
  * "author_id": number
  * "url": string
