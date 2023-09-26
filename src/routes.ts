@@ -3,7 +3,6 @@ import firebase from './utils/firebase';
 import {
   docsPost,
   collectionGet,
-  collectionGetAll,
   collectionPost,
   usersPost,
   metaGetActual,
