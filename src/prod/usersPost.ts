@@ -12,9 +12,7 @@ import getboolean from '../utils/getboolean';
  * group: string;
  *
  * Необязательный
- * noise: boolean;
  * photo_url: string;
- * hidden: boolean;
  * display_name: string; длина от 1 до 40 включительно
  * description: string; длина от 1 до 40 включительно
  */
@@ -103,20 +101,6 @@ export default async function usersPost(
     return responseObject;
   }
 
-  if (body['noise'] && (body['noise'] === 'true' || body['noise'] === 'false')) {
-    responseObject.response.status = 28;
-    responseObject.response.type = 'error';
-    responseObject.response.errormessage = 'параметр noise не булево значение';
-    return responseObject;
-  }
-
-  if (body['hidden'] && (body['hidden'] === 'true' || body['hidden'] === 'false')) {
-    responseObject.response.status = 29;
-    responseObject.response.type = 'error';
-    responseObject.response.errormessage = 'параметр hidden не булево значение';
-    return responseObject;
-  }
-
   if (
     body['description'] &&
     (String(body['description']).length < 1 || String(body['description']).length > 40)
@@ -146,15 +130,14 @@ export default async function usersPost(
 
   try {
     const data: userType = {
+      id: Number(body['id_vk']),
       id_vk: Number(body['id_vk']),
       name_vk: body['name_vk'],
       telegram_nickname: body['telegram_nickname'],
-      hidden: getboolean(body['hidden']) || true,
       display_name: body['display_name'] || null,
       description: body['description'] || null,
       photo_url: body['photo_url'] || null,
       group: body['group'],
-      noise: getboolean(body['hidden']) || false,
     };
     await firebase.setdoc('users', body['id_vk'], data);
     const metaCount = await firebase.getCount('meta');
