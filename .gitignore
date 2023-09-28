@@ -4,3 +4,4 @@ src/dev
 .idea/
 .vercel
 dist
+.DS_Store

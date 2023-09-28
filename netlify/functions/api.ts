@@ -6,6 +6,9 @@ import cors from 'cors';
 
 const api = express();
 api.use(cors());
+api.use(express.json());
+api.use(express.urlencoded({ extended: true }));
+
 const router = Router();
 router.get('/hello', (req, res) => res.send('Hello World!'));
 const fb = new firebase();
