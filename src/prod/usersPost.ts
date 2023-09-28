@@ -168,6 +168,7 @@ export default async function usersPost(
     responseObject.response.status = 16;
     responseObject.response.type = 'error';
     responseObject.response.errormessage = 'ошибка firebase';
+    responseObject.response.data = err;
     return responseObject;
   }
 }
