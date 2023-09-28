@@ -49,13 +49,12 @@ export type documentType = {
 };
 
 export type userType = {
+  id: number;
   id_vk: number;
   name_vk: string;
   telegram_nickname: string;
-  hidden: boolean;
   display_name: string | null;
   description: string | null;
   photo_url: string | null;
   group: string;
-  noise: boolean;
 };
