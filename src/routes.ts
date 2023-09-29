@@ -8,6 +8,7 @@ import {
   metaGetActual,
   usersCheck,
   apiGet,
+  apiUpdate,
 } from './prod';
 
 export default function routes(app: Express, firebase: firebase) {
@@ -40,7 +41,11 @@ export default function routes(app: Express, firebase: firebase) {
     res.send(GetData);
   });
   app.get('/api.get', async (req: Request, res: Response) => {
-    const GetData = await apiGet();
+    const GetData = await apiGet(firebase);
+    res.send(GetData);
+  });
+  app.get('/api.update', async (req: Request, res: Response) => {
+    const GetData = await apiUpdate(firebase);
     res.send(GetData);
   });
   // POST
@@ -94,7 +99,7 @@ export function routesnetlify(app: Router, firebase: firebase) {
     res.send(GetData);
   });
   app.get('/api.get', async (req: Request, res: Response) => {
-    const GetData = await apiGet();
+    const GetData = await apiGet(firebase);
     res.send(GetData);
   });
   // POST

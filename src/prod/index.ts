@@ -7,5 +7,15 @@ import collectionGet from './collectionGet';
 import metaGetActual from './metaGetActual';
 import usersCheck from './usersCheck';
 import apiGet from './apiGet';
+import apiUpdate from './apiUpdate';
 
-export { apiGet, usersCheck, metaGetActual, docsPost, collectionGet, collectionPost, usersPost };
+export {
+  apiUpdate,
+  apiGet,
+  usersCheck,
+  metaGetActual,
+  docsPost,
+  collectionGet,
+  collectionPost,
+  usersPost,
+};

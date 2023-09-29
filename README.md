@@ -729,6 +729,32 @@ API доступно по ссылке - https://stockapi.netlify.app/api/
 
 ошибка `Firebase`
 
+# api.get
+
+## Метод
+
+### GET
+
+Возвращает документацию `stockapi` в специальном формате
+
+## Результат
+
+Возвращает актуальную версию документации `stockapi` на основе стандартного ответа
+
+Возвращает массив из специальных объектов `apiType`
+
+## apiType
+
+{ title: string; content: apiContentType[]; }
+
+## apiContentType
+
+{ type: 'text' | 'subtitle' | 'subsubtitle'; item: string | apiContentItemType[]; }
+
+## apiContentItemType
+
+{ text: string; highlight: boolean; }
+
 # user.post
 
 ## Метод
