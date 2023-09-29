@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import { responseType } from '../@types/response';
 type apiType = {
   title: string;
@@ -23,7 +24,8 @@ export default async function apiGet() {
   };
   const start = new Date();
   try {
-    const readme = fs.readFileSync(`./README.md`, 'utf-8').split('\n');
+    const readmePath = path.join(__dirname, '../../README.md');
+    const readme = fs.readFileSync(readmePath, 'utf-8').split('\n');
     const data: apiType[] = [];
     for (let i = 0; i < readme.length; i++) {
       if (readme[i]) {
