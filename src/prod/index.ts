@@ -6,5 +6,6 @@ import usersPost from './usersPost';
 import collectionGet from './collectionGet';
 import metaGetActual from './metaGetActual';
 import usersCheck from './usersCheck';
+import apiGet from './apiGet';
 
-export { usersCheck, metaGetActual, docsPost, collectionGet, collectionPost, usersPost };
+export { apiGet, usersCheck, metaGetActual, docsPost, collectionGet, collectionPost, usersPost };

@@ -131,10 +131,8 @@ export default async function usersPost(
   try {
     const data: userType = {
       id: Number(body['id_vk']),
-      id_vk: Number(body['id_vk']),
-      name_vk: body['name_vk'],
       telegram_nickname: body['telegram_nickname'],
-      display_name: body['display_name'] || null,
+      display_name: body['display_name'] || body['name_vk'],
       description: body['description'] || null,
       photo_url: body['photo_url'] || null,
       group: body['group'],

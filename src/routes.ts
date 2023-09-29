@@ -7,6 +7,7 @@ import {
   usersPost,
   metaGetActual,
   usersCheck,
+  apiGet,
 } from './prod';
 
 export default function routes(app: Express, firebase: firebase) {
@@ -36,6 +37,10 @@ export default function routes(app: Express, firebase: firebase) {
   });
   app.get('/users.check', async (req: Request, res: Response) => {
     const GetData = await usersCheck(req, firebase);
+    res.send(GetData);
+  });
+  app.get('/api.get', async (req: Request, res: Response) => {
+    const GetData = await apiGet();
     res.send(GetData);
   });
   // POST
@@ -72,7 +77,6 @@ export function routesnetlify(app: Router, firebase: firebase) {
     const examsGetData = await collectionGet(req, firebase, 'exams');
     res.send(examsGetData);
   });
-
   app.get('/teachers.get', async (req: Request, res: Response) => {
     const teachersGetData = await collectionGet(req, firebase, 'teachers');
     res.send(teachersGetData);
@@ -89,19 +93,11 @@ export function routesnetlify(app: Router, firebase: firebase) {
     const GetData = await usersCheck(req, firebase);
     res.send(GetData);
   });
+  app.get('/api.get', async (req: Request, res: Response) => {
+    const GetData = await apiGet();
+    res.send(GetData);
+  });
   // POST
-  app.post('/docs.post', async (req: Request, res: Response) => {
-    const buffer = await docsPost(req.headers, req.body, firebase);
-    res.send(buffer);
-  });
-  app.post('/exams.post', async (req: Request, res: Response) => {
-    const buffer = await collectionPost(req.headers, req.body, firebase, 'exams');
-    res.send(buffer);
-  });
-  app.post('/tests.post', async (req: Request, res: Response) => {
-    const buffer = await collectionPost(req.headers, req.body, firebase, 'tests');
-    res.send(buffer);
-  });
   app.post('/users.post', async (req: Request, res: Response) => {
     const buffer = await usersPost(req.headers, req.body, firebase);
     res.send(buffer);

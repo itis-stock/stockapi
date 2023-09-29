@@ -1,30 +1,32 @@
 # Обзор
 
-В этом руководстве вы найдете базовую информацию про STOCK API
+Здесь вы сможете найти руководство по stockapi
 
-[API](<https://en.wikipedia.org/wiki/API#:~:text=An%20application%20programming%20interface%20(API,to%20other%20pieces%20of%20software.)>) - это короче че то крутое и мощное, но как говорится, похуй
+API поддерживает `GET` и `POST` запросы. Для `POST` запроса необходим `MASTER_KEY`. Но вы этот ключ не получите, так что зачилльтесь.
 
-В ответ на запросы на сервер получаем JSON
+В ответ на любой запрос получаем JSON.
+
+# Технологии
+
+`Typescript` + `Express.js` + `Firebase firestore`
+
+`API` залито на `netlify` с помощью `functions`
 
 # Быстрый старт
 
-Ссылки, по которым доступно API:
+API доступно по ссылке - https://stockapi.netlify.app/api/
 
-- пока ссылок нет, похуй
+## GET
 
-Для обращения к API можно использовать `GET` и `POST` запросы. Но для `POST` запроса необходим `MASTER_KEY` - уникальный ключ для работы API. Но вы этот ключ не получите, так что тупо зачилльтесь
+`GET https://stockapi.netlify.app/api/<METHOD>?<PARAMS>`
 
-Объекты - это `docs`, `exams` и `test`
+## POST
 
-Все параметры передаются в `headers`
+`POST https://stockapi.netlify.app/api/<METHOD>`
 
-# Быстрый старт [dev]
+Чтобы совершить `POST` запрос, необходимо указать в `headers` ключ `master_key`
 
-- Скачиваем файл `.env`
-- Пишем команду `yarn`, она установит все зависимости
-- Запускаем команду `yarn run dev`
-- Переходим по этой [ссылке](https://localhost:3000/check)
-- А дальше все по базе
+Также необходимо передать `BODY PARAMS` в формате `x-form-www-urlencoded`
 
 # Стандартный ответ
 
@@ -33,32 +35,19 @@
   response: {
     status: number;
     time: number;
-    type: "array" | "object";
-    count?: number; //если type === "array", то count существует и означает количество элементов
-    data: any; //сам результат, который берется из firebase
+    type: 'array' | 'object' | 'error' | 'post';
+    errormessage?: string;
+    count?: number;
+    data?: any;
   }
 }
 ```
 
-# Коды ответов
+# Коды status
 
-### `200`
+## 200
 
 Все с кайфом
-
-### `1`
-
-Не указаны обязательный параметр
-
-### `2`
-
-Произошла ошибка при получении данных с firebase
-
-### `3`
-
-Неправильно указаны параметры
-
-пока других придумать не могу
 
 # /check
 

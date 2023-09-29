@@ -26,9 +26,6 @@ export type photoType = {
 
 export type docType = {
   title: string;
-  /**
-   * размер в байтах
-   */
   size: number;
   ext: string;
   url: string;
@@ -50,8 +47,6 @@ export type documentType = {
 
 export type userType = {
   id: number;
-  id_vk: number;
-  name_vk: string;
   telegram_nickname: string;
   display_name: string | null;
   description: string | null;
