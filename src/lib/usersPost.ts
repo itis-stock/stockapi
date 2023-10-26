@@ -41,8 +41,6 @@ export default async function usersPost(
    * 25 - не указан обязательный параметр name_vk
    * 26 - не указан обязательный параметр telegram_nickname
    * 27 - не указан обязательный параметр group
-   * 28 - параметр noise не булево значение
-   * 29 - параметр hidden не булево значение
    * 30 - description некорректного типа
    * 31 - display_name некорректного типа
    * 32 - photo_url некорректного типа

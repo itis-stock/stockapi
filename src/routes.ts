@@ -7,7 +7,6 @@ import {
   usersPost,
   metaGetActual,
   usersCheck,
-  apiGet,
   apiUpdate,
 } from "./lib";
 
@@ -40,10 +39,7 @@ export default function routes(app: Express, firebase: firebase) {
     const GetData = await usersCheck(req, firebase);
     res.send(GetData);
   });
-  app.get("/api.get", async (req: Request, res: Response) => {
-    const GetData = await apiGet(firebase);
-    res.send(GetData);
-  });
+
   app.get("/api.update", async (req: Request, res: Response) => {
     const GetData = await apiUpdate();
     res.send(GetData);
@@ -105,10 +101,7 @@ export function routesnetlify(app: Router, firebase: firebase) {
     const GetData = await usersCheck(req, firebase);
     res.send(GetData);
   });
-  app.get("/api.get", async (req: Request, res: Response) => {
-    const GetData = await apiGet(firebase);
-    res.send(GetData);
-  });
+
   // POST
   app.post("/users.post", async (req: Request, res: Response) => {
     const buffer = await usersPost(req.headers, req.body, firebase);

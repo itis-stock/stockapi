@@ -36,6 +36,5 @@ export default async function apiUpdate() {
       "|\n";
   }
   fs.writeFileSync("README.md", result);
-
   return mas;
 }
