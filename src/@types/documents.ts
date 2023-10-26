@@ -13,7 +13,7 @@ export type commentType = {
 };
 
 export type attachmentsType = {
-  type: 'photo' | 'doc';
+  type: "photo" | "doc";
   photo?: photoType[];
   doc?: docType;
 };

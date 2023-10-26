@@ -1,18 +1,16 @@
 # Обзор
 
+## Краткий обзор
+
 Здесь вы сможете найти руководство по stockapi
 
 API поддерживает `GET` и `POST` запросы. Для `POST` запроса необходим `MASTER_KEY`. Но вы этот ключ не получите, так что зачилльтесь.
 
 В ответ на любой запрос получаем JSON.
 
-# Технологии
-
-`Typescript` + `Express.js` + `Firebase Firestore`
-
-`API` залито на `netlify` с помощью `functions`
-
 # Быстрый старт
+
+## Быстрый старт
 
 API доступно по ссылке - https://stockapi.netlify.app/api/
 
@@ -30,20 +28,47 @@ API доступно по ссылке - https://stockapi.netlify.app/api/
 
 # Стандартный ответ
 
-```typescript
-{
-  response: {
-    status: number;
-    time: number;
-    type: 'array' | 'object' | 'error' | 'post';
-    errormessage?: string;
-    count?: number;
-    data?: any;
-  }
-}
-```
+## status
+
+### number
+
+Кодовое состояние статуса
+
+## time
+
+### number
+
+время в секундах, потраченное на запрос
+
+## type
+
+### 'array' | 'object' | 'error' | 'post'
+
+тип ответа
+
+## errormessage
+
+### string
+
+### необязательный
+
+Сообщение об ошибки
+
+## count
+
+### number
+
+### необязательный
+
+Количество элементов, если `type` === `array`
+
+## data
+
+сам возвращаемый объект или массив
 
 # Коды status
+
+## Коды status
 
 ### 200
 
@@ -179,6 +204,8 @@ API доступно по ссылке - https://stockapi.netlify.app/api/
 
 # AttachmentsType
 
+## AttachmentsType
+
 Специальный объект, хранящий либо `photo`, либо `doc`
 
 ## photo
@@ -227,6 +254,8 @@ API доступно по ссылке - https://stockapi.netlify.app/api/
 
 # DocsMetaType
 
+## DocsMetaType
+
 Специальный объект, который хранится в `meta`
 
 ## fb_id
@@ -273,6 +302,8 @@ API доступно по ссылке - https://stockapi.netlify.app/api/
 
 # MetaType
 
+## MetaType
+
 Специальный объект, который хранится в `meta`
 
 Внутри него используются так называемые ключи, которые образуется в таком формате `<course>_<semestr>_<subject>_<teacher>`
@@ -280,6 +311,8 @@ API доступно по ссылке - https://stockapi.netlify.app/api/
 Внутри каждого такого ключа хранится массив `string` из `fb_id`
 
 # GroupsMetaType
+
+## GroupsMetaType
 
 Специальный объект, который хранится в `meta`
 
