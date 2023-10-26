@@ -1,17 +1,22 @@
-import { google, sheets_v4 } from 'googleapis';
-import { mergesType, tableType, teachersElementType, teachersType } from '../@types/timetable';
-import { subjectslist } from '../docs/subjects';
-import { teacherslist } from '../docs/teachers';
+import { google, sheets_v4 } from "googleapis";
+import {
+  mergesType,
+  tableType,
+  teachersElementType,
+  teachersType,
+} from "../@types/timetable";
+import { subjectslist } from "../lists/subjects";
+import { teacherslist } from "../lists/teachers";
 
 export default class timetable {
-  sheets_id = '1S-6LVVqPcS52mJs8QYna_NfUtwW7lV-JK_O5ZExBkmQ';
+  sheets_id = "1S-6LVVqPcS52mJs8QYna_NfUtwW7lV-JK_O5ZExBkmQ";
   sheets: sheets_v4.Sheets;
   columnCount: number;
   /**
    * иницилизация таблицы
    */
   constructor() {
-    this.sheets = google.sheets('v4');
+    this.sheets = google.sheets("v4");
     this.columnCount = 0;
   }
   /**
@@ -48,9 +53,11 @@ export default class timetable {
         const tablerow: string[] = [];
         for (let j = 0; j < merges.columnCount; j++) {
           if (table[i][j]) {
-            tablerow.push(table[i][j].replace(/\n/g, ' ').replace(/\s+/g, ' ').trim());
+            tablerow.push(
+              table[i][j].replace(/\n/g, " ").replace(/\s+/g, " ").trim(),
+            );
           } else {
-            tablerow.push('');
+            tablerow.push("");
           }
         }
         tablebuf.push(tablerow);
@@ -58,12 +65,12 @@ export default class timetable {
     }
     merges.merges.forEach((el) => {
       if (
-        typeof el.endColumn === 'number' &&
-        typeof el.startColumn === 'number' &&
-        typeof el.startRow === 'number' &&
+        typeof el.endColumn === "number" &&
+        typeof el.startColumn === "number" &&
+        typeof el.startRow === "number" &&
         el.endColumn - el.startColumn > 1
       ) {
-        tablebuf[el.startRow][el.startColumn] += ' объединенный';
+        tablebuf[el.startRow][el.startColumn] += " объединенный";
         for (let i = el.startColumn; i < el.endColumn; i++) {
           tablebuf[el.startRow][i] = tablebuf[el.startRow][el.startColumn];
         }
@@ -76,7 +83,9 @@ export default class timetable {
    * @returns возвращает двумерный массив таблицы
    */
   private async getTable(): Promise<tableType> {
-    const data = await this.sheets.spreadsheets.values.get(this.getParams('Бакалавриат'));
+    const data = await this.sheets.spreadsheets.values.get(
+      this.getParams("Бакалавриат"),
+    );
     const sheet = data.data.values;
     return sheet;
   }
@@ -86,7 +95,9 @@ export default class timetable {
    */
   private async getMerges(): Promise<mergesType> {
     const data = await this.sheets.spreadsheets.get(this.getParams());
-    const sheet = data.data.sheets?.find((s) => s.properties?.title === 'Бакалавриат');
+    const sheet = data.data.sheets?.find(
+      (s) => s.properties?.title === "Бакалавриат",
+    );
     const merges: mergesType = {
       columnCount: sheet?.properties?.gridProperties?.columnCount,
       merges: [],
@@ -114,12 +125,12 @@ export default class timetable {
     if (this.columnCount) {
       for (let i = 0; i < this.columnCount; i++) {
         const group = mergedtable[1][i].match(/11-[0-9]+/g);
-        if (group && !mergedtable[1][i].includes('иностр')) {
+        if (group && !mergedtable[1][i].includes("иностр")) {
           const course = mergedtable[0][i]
             .match(/[1-4] КУРС/g)
-            ?.map((el) => el.replace(' КУРС', ''));
+            ?.map((el) => el.replace(" КУРС", ""));
           teachers.push({
-            group: group.join(''),
+            group: group.join(""),
             course: Number(course),
             indexColumn: i,
             practice: [],
@@ -135,12 +146,12 @@ export default class timetable {
           for (let e of subjectslist) {
             if (element.includes(e)) {
               for (let u of teacherslist) {
-                if (element.includes(u + ' ')) {
+                if (element.includes(u + " ")) {
                   const buf: teachersElementType = {
                     subject: e,
                     name: u,
                   };
-                  if (element.includes('объединенный')) {
+                  if (element.includes("объединенный")) {
                     if (!teachers[i].lecture.includes(buf)) {
                       teachers[i].lecture.push(buf);
                     }

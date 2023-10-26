@@ -13,7 +13,7 @@ export type commentType = {
 };
 
 export type attachmentsType = {
-  type: 'photo' | 'doc';
+  type: "photo" | "doc";
   photo?: photoType[];
   doc?: docType;
 };
@@ -35,14 +35,11 @@ export type documentType = {
   url: string;
   year: number;
   author_id: number;
-  course: number | null;
-  semestr: number | null;
-  teacher: string | null;
-  subject: string | null;
+  course: number;
+  teacher: string;
+  subject: string;
   date: number;
-  title: string | null;
   likes: number;
-  special: boolean;
 };
 
 export type userType = {
